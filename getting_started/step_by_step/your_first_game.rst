@@ -1125,6 +1125,30 @@ sync with the changing score:
 Now you're ready to play! Click the "Play the Project" button. You will
 be asked to select a main scene, so choose ``Main.tscn``.
 
+Removing old creeps
+~~~~~~~~~~~~~~~~~~~
+
+Currently if you play until you die and start a new game, creeps from the previous game are still on screen. Which can mean you're touching them as soon as you begin. We'll remove all remainig creeps when the start button is clicked for a clean start.
+
+We'll use the "start_game" signal that's already being emitted by the HUD node to remove the remaining creeps. But we can't use the editor to connect the signal to the Mobs in the way we did before because there are no Mob nodes in the Main scene tree until we run the game. Instead we'll connect the signal with code.
+
+We start by setting up a new function in Mob.gd. queue_free will delete the Mob node at the end of the current frame.
+
+.. tabs::
+ .. code-tab:: gdscript GDScript
+
+          func _on_start_game():
+                    queue_free()
+
+Then in Main.gd we add a new line to the bottom of the _on_MobTimer_timeout function.
+
+.. tabs::
+ .. code-tab:: gdscript GDScript
+
+          $HUD.connect("start_game",mob,"_on_start_game")
+  
+This line connects the HUD's start_game signal to the function we just created in Mob.gd. Any existing Mobs will be deleted just after that signal fires.
+
 Finishing up
 ------------
 
