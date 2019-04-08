@@ -61,7 +61,7 @@ The keyframe will be added in the animation player editor:
 
 .. image:: img/robisplash_anim_editor_keyframe.png
 
-Move the editor cursor to the end by clicking here:
+Move the editor cursor forward in time by clicking here:
 
 .. image:: img/robisplash_anim_editor_track_cursor.png
 
